@@ -1,0 +1,104 @@
+{
+    "os": "Linux-5.0.0-19-generic-x86_64-with-glibc2.17",
+    "python": "3.8.19",
+    "heartbeatAt": "2024-05-03T13:34:23.672223",
+    "startedAt": "2024-05-03T13:34:22.381559",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--model",
+        "beit_base_patch16_224",
+        "--data_path",
+        "/home/shubhamp/Desktop/clf_emarg_data",
+        "--nb_classes",
+        "2",
+        "--data_set",
+        "image_folder",
+        "--disable_eval_during_finetuning",
+        "--finetune",
+        "https://github.com/addf400/files/releases/download/v1.0/beit_base_patch16_224_pt22k.pth",
+        "--output_dir",
+        "/home/shubhamp/Downloads/unilm/beit/beit_ckpt",
+        "--batch_size",
+        "32",
+        "--lr",
+        "3e-3",
+        "--update_freq",
+        "1",
+        "--warmup_epochs",
+        "5",
+        "--epochs",
+        "90",
+        "--layer_decay",
+        "0.65",
+        "--drop_path",
+        "0.2",
+        "--weight_decay",
+        "0.05",
+        "--enable_deepspeed",
+        "--layer_scale_init_value",
+        "0.1",
+        "--clip_grad",
+        "3.0",
+        "--save_ckpt"
+    ],
+    "state": "running",
+    "program": "run_class_finetuning.py",
+    "codePathLocal": "run_class_finetuning.py",
+    "codePath": "beit/run_class_finetuning.py",
+    "git": {
+        "remote": "https://github.com/microsoft/unilm.git",
+        "commit": "73761b60b1746c6a4e746cb0abac1c55eb9f385b"
+    },
+    "email": "shubhampundhir1999@gmail.com",
+    "root": "/home/shubhamp/Downloads/unilm",
+    "host": "iiitd-C7Z170-SQ",
+    "username": "shubhamp",
+    "executable": "/home/shubhamp/anaconda3/envs/beit/bin/python",
+    "cpu_count": 4,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 3428.8652500000003,
+        "min": 800.0,
+        "max": 3600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3492.341,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 3403.864,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 3424.353,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 3394.903,
+            "min": 800.0,
+            "max": 3600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 916.7688674926758,
+            "used": 795.3320159912109
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1080 Ti",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1080 Ti",
+            "memory_total": 11811160064
+        }
+    ],
+    "memory": {
+        "total": 47.121280670166016
+    }
+}

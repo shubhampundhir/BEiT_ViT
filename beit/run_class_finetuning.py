@@ -32,6 +32,7 @@ from utils import NativeScalerWithGradNormCount as NativeScaler
 import utils
 from scipy import interpolate
 import modeling_finetune
+import wandb
 
 
 def get_args():
@@ -148,17 +149,17 @@ def get_args():
     parser.add_argument('--disable_weight_decay_on_rel_pos_bias', action='store_true', default=False)
 
     # Dataset parameters
-    parser.add_argument('--data_path', default='/datasets01/imagenet_full_size/061417/', type=str,
+    parser.add_argument('--data_path', default='/home/shubhamp/Desktop/clf_emarg_data', type=str,
                         help='dataset path')
-    parser.add_argument('--eval_data_path', default=None, type=str,
+    parser.add_argument('--eval_data_path', default="/home/shubhamp/Desktop/clf_emarg_data/val", type=str,
                         help='dataset path for evaluation')
-    parser.add_argument('--nb_classes', default=0, type=int,
+    parser.add_argument('--nb_classes', default=2, type=int,
                         help='number of the classification types')
     parser.add_argument('--imagenet_default_mean_and_std', default=False, action='store_true')
 
-    parser.add_argument('--data_set', default='IMNET', choices=['CIFAR', 'IMNET', 'image_folder'],
+    parser.add_argument('--data_set', default='image_folder', choices=['CIFAR', 'IMNET', 'image_folder'],
                         type=str, help='ImageNet dataset path')
-    parser.add_argument('--output_dir', default='',
+    parser.add_argument('--output_dir', default='/home/shubhamp/Downloads/unilm/beit/beit_ckpt',
                         help='path where to save, empty for no saving')
     parser.add_argument('--log_dir', default=None,
                         help='path where to tensorboard log')
@@ -215,6 +216,8 @@ def get_args():
 
 
 def main(args, ds_init):
+    wandb.init(project='BEiT_Finetuning_Emarg', config=vars(args))
+    wandb.run.name = 'BEiT_FineTuning'
     utils.init_distributed_mode(args)
 
     if ds_init is not None:
@@ -544,13 +547,24 @@ def main(args, ds_init):
             lr_schedule_values=lr_schedule_values, wd_schedule_values=wd_schedule_values,
             num_training_steps_per_epoch=num_training_steps_per_epoch, update_freq=args.update_freq,
         )
+        
+        # Add print statement to display keys in train_stats
+        # print("Keys in train_stats:")
+        # for key in train_stats.keys():
+        #     print(key)
+         # Log training metrics
+        wandb.log({'train_loss': train_stats['loss'], 'train_accuracy': train_stats['class_acc'], 'learning_rate':train_stats['lr']})
+        
         if args.output_dir and args.save_ckpt:
             if (epoch + 1) % args.save_ckpt_freq == 0 or epoch + 1 == args.epochs:
                 utils.save_model(
                     args=args, model=model, model_without_ddp=model_without_ddp, optimizer=optimizer,
                     loss_scaler=loss_scaler, epoch=epoch, model_ema=model_ema)
+                # Log metrics after saving checkpoint
+                wandb.log({'epoch': epoch, 'checkpoint_saved': True})
         if data_loader_val is not None:
             test_stats = evaluate(data_loader_val, model, device)
+            wandb.log({'epoch': epoch, 'val_loss': test_stats['loss'], 'val_accuracy_1': test_stats['acc1'], 'val_accuracy_5': test_stats['acc5']})
             print(f"Accuracy of the network on the {len(dataset_val)} test images: {test_stats['acc1']:.1f}%")
             if max_accuracy < test_stats["acc1"]:
                 max_accuracy = test_stats["acc1"]

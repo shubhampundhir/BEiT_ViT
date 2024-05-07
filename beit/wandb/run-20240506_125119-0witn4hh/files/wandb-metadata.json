@@ -1,0 +1,78 @@
+{
+    "os": "Linux-5.0.0-19-generic-x86_64-with-glibc2.17",
+    "python": "3.8.19",
+    "heartbeatAt": "2024-05-06T07:21:20.249083",
+    "startedAt": "2024-05-06T07:21:19.356466",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--eval",
+        "--model",
+        "beit_base_patch16_224",
+        "--input_size",
+        "224",
+        "--data_path",
+        "/home/shubhamp/Desktop/clf_emarg_data",
+        "--resume",
+        "/home/shubhamp/Downloads/unilm/beit/beit_ckpt/checkpoint-9/mp_rank_00_model_states.pt"
+    ],
+    "state": "running",
+    "program": "run_class_finetuning.py",
+    "codePathLocal": "run_class_finetuning.py",
+    "codePath": "beit/run_class_finetuning.py",
+    "git": {
+        "remote": "https://github.com/microsoft/unilm.git",
+        "commit": "73761b60b1746c6a4e746cb0abac1c55eb9f385b"
+    },
+    "email": "shubhampundhir1999@gmail.com",
+    "root": "/home/shubhamp/Downloads/unilm",
+    "host": "iiitd-C7Z170-SQ",
+    "username": "shubhamp",
+    "executable": "/home/shubhamp/anaconda3/envs/beit/bin/python",
+    "cpu_count": 4,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 2500.12775,
+        "min": 800.0,
+        "max": 3600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2500.337,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2500.002,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2500.092,
+            "min": 800.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2500.08,
+            "min": 800.0,
+            "max": 3600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 916.7688674926758,
+            "used": 797.7036628723145
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1080 Ti",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1080 Ti",
+            "memory_total": 11811160064
+        }
+    ],
+    "memory": {
+        "total": 47.121280670166016
+    }
+}
